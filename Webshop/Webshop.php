@@ -7,14 +7,7 @@ class Webshop {
     // webshop name
     public $name            = 'Untitled';
     
-    // models
-    public $models          = array(
-        
-        'Category'              => null,
-        'Product'               => null,
-        'Categories_Products'   => null,
-    );
-    
+	// db settings
 	public static $settings = array(
         
 		'db' => array(
@@ -26,6 +19,7 @@ class Webshop {
 		),
     );
 	
+	// db connection
     public static $db       = null;
     
     public function __construct($name = 'Untitled') {
@@ -41,5 +35,7 @@ class Webshop {
         return \Webshop\Model\Category::getAll();
     }
 	
-	
+	public function getProducts() {
+		return \Webshop\Model\Product::getAll();
+	}
 }
