@@ -8,47 +8,26 @@
  * @author    Ibrahim Abdullah <ibrahim.abdullah@outlook.com>
  */
 namespace Webshop;
-use       Webshop\Cart;
-use       Webshop\Model;
 
 class Cart {
 
-    /**
-	 * Cart Storage
-	 *
-	 * @var StorageInterface
-	 */
-	protected $storage = null;
+	protected $storage;
 
-    /**
-	 * @param StorageInterface $storage
-	 */
-	public function __construct(StorageInterface $storage = null) {
-		
-		if (null === $storage) {
-			$storage = new Cart\Storage\Session('CartStorageSession');
-		}
-		
+	public function __construct(StorageInterface $storage) {
 		$this->storage = $storage;
 	}
 	
-	/**
-	 * @return StorageInterface
-	 */
 	public function storage() {
 		return $this->storage;
 	}
 	
-	/**
-	 * @return Model\Order
-	 */
 	public function checkout() {
 		
-		$order 	  = new Model\Order;
+		$order 	  = new \Webshop\Model\Order;
 		$products = $storage->items();
 		foreach ($products as $productId => $quantity) {
 			
-			$product = new Model\Product($productId);
+			$product = new \Webshop\Model\Product($productId);
 			$order->addProduct($product, $quantity);
 		}
 		
