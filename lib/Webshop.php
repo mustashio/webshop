@@ -80,7 +80,7 @@ class Webshop {
 			static::$connection = new \PDO('mysql:host=' . $db['hostname'] . ';dbname=' . $db['database'], $db['username'], $db['password']);
 		}
 		
-		return static::$db;
+		return static::$connection;
 	}
 	
 	/**

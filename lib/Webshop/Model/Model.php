@@ -43,20 +43,9 @@ class Model {
 	 */
     public function __construct($id = null, $data = []) {
 		
-		if (is_int($id) && count($data) == 0) {
-			
-			$this->data = static::find($id);
-			
-		} else if ($id === null) {
-			
-			$this->new_record = true;
-			$this->data		  = $data;
-			$this->dirty	  = true;
-			
-		} else {
-			
-			throw new ModelException('WRONG DATA SUPPLIED TO MODEL');
-		}
+		$this->new_record = ($id === null);
+		$this->data		  = $data;
+		$this->dirty	  = ($id === null);
     }
 	
 	/**
@@ -192,7 +181,7 @@ class Model {
 		$model   = get_called_class();
 
 		foreach ($results as $result) {
-			$records[] = new $model($result['id'], $result);
+			$records[] = new $model(intval($result['id']), $result);
 		}
 		
 		return $records;
